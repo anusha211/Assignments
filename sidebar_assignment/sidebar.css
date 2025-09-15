@@ -1,0 +1,133 @@
+*{
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
+    background: #f5f5f5;
+    color: #3d2c1a;
+    margin: 0;
+}
+
+header {
+    background:  #ffd6e0;
+    padding: 30px 0 10px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #3d2c1a;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #d17c3a;
+}
+
+
+.content-wrapper {
+    display: flex;
+    margin: 0 auto;
+    gap: 32px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 300px;
+    background: #ffe7c7;
+    padding: 32px 24px 24px 24px;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.07);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+.sidebar-toggle:checked ~ .content-wrapper .sidebar {
+    transform: translateX(0);
+}
+
+
+.sidebar-open-btn {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    background: #d17c3a;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.sidebar-open-btn:hover {
+    background: #a85c1a;
+}
+
+
+.sidebar-toggle:checked ~ .sidebar-open-btn {
+    display: none;
+}
+
+
+.sidebar-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 2em;
+    color: #a85c1a;
+    cursor: pointer;
+}
+
+
+.sidebar-toggle:checked ~ .content-wrapper {
+    margin-left: 300px;
+    transition: margin 0.3s;
+}
+
+
+main {
+    flex:1;
+    padding: 30px;
+    background:  #eee7e3ff;
+}
+
+article {
+    margin-bottom: 40px;
+}
+
+article h2 {
+    color: #d17c3a;
+    margin-bottom: 12px;
+}
+
+
+footer {
+    text-align: center;
+    padding: 18px 0;
+    background: linear-gradient(90deg, #ffd6e0 0%, #f9d29d 100%);
+    margin-top: 50px;
+    font-size: 1em;
+    color: #3d2c1a;
+}
