@@ -25,6 +25,13 @@ input {
   min-width: 150px; 
 }
 
+.error {
+  color: red;
+  font-size: 12px;
+  display: block;
+  margin-top: 4px;
+}
+
 button {
   padding: 8px 12px;
   border: none;
@@ -69,11 +76,30 @@ td button:hover {
   opacity: 0.8;
 }
 
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lastrow.added {
+  animation: fadeInSlide 1s ease forwards;
+}
+
+
+
 
 @media (max-width: 670px) {
   form {
     flex-direction: column; 
     align-items: stretch;
+    width: 100%;
+    margin:0;
   }
 
 input, button {
@@ -124,3 +150,4 @@ input, button {
     font-size: 14px;         
   }
 }
+

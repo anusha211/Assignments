@@ -20,10 +20,10 @@ function renderUsers() {
   userTable.innerHTML = users
     .map((user, i) => {
       return `
-        <tr>
-          <td data-label="Name">${user.name}</td>
-          <td data-label="Email">${user.email}</td>
-          <td data-label="Phone">${user.phone}</td>
+        <tr class='lastrow'>
+          <td data-label="Name" >${user.name}</td>
+          <td data-label="Email" >${user.email}</td>
+          <td data-label="Phone" >${user.phone}</td>
           <td >
             <button class="edit" onclick="editUser(${i})">Edit</button>
             <button class="delete" onclick="deleteUser(${i})">Delete</button>
@@ -32,28 +32,53 @@ function renderUsers() {
       `;
     })
     .join("");
+
+
+ const rows = userTable.querySelectorAll("tr");
+const lastRow = rows[rows.length - 1];
+
+lastRow.classList.add("added");
+lastRow.addEventListener("animationend", () => lastRow.classList.remove("added"));
 }
 
+
 function saveUser() {
+
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const phone = document.getElementById("phone").value.trim();
+  const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+  const phoneError = document.getElementById("phoneError");
+
+    // Reset errors
+  nameError.textContent="";
+  emailError.textContent = "";
+  phoneError.textContent = "";
 
   if (!name || !email || !phone) {
-    alert("All fields are required!");
+    nameError.textContent ="name should not be empty!";
+    emailError.textContent = ' email should not be empty!';
+    phoneError.textContent = 'phone should not be empty!';
     return;
   }
+  const namepattern=/[\a-\z]/;
+  if(!namepattern.test(name)){
+    nameError.textContent = 'name should only contain alphabets!';
+    return;
+  }
+     const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailpattern.test(email)){
+     emailError.textContent = "Please enter a valid email!";
+      return;
+    }
+
     const phonepattern = /^\d{10}$/;
   if (!phonepattern.test(phone)) {
-    alert("Please enter a valid phone number (with 10 digits!)");
+     phoneError.textContent = "Please enter a valid 10-digit phone number!";
     return;
   }
 
-   const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailpattern.test(email)){
-      alert("please add correct email!");
-      return;
-    }
 
   if (editIndex === null) {
   
@@ -72,6 +97,8 @@ function saveUser() {
   document.getElementById("userForm").reset();
 }
 
+
+
 function editUser(i) {
   document.getElementById("name").value = users[i].name;
   document.getElementById("email").value = users[i].email;
@@ -81,6 +108,7 @@ function editUser(i) {
   
   document.getElementById("saveBtn").innerText = "Update";
 }
+
 
 function deleteUser(i) {
   users.splice(i, 1);
