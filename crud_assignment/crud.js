@@ -56,13 +56,22 @@ function saveUser() {
   emailError.textContent = "";
   phoneError.textContent = "";
 
-  if (!name || !email || !phone) {
+  if (!name && !email && !phone) {
     nameError.textContent ="name should not be empty!";
     emailError.textContent = ' email should not be empty!';
     phoneError.textContent = 'phone should not be empty!';
     return;
   }
-  const namepattern=/[\a-\z]/;
+  if(!name){
+    nameError.textContent ="name should not be empty!";
+  }
+  if(!email)
+  {
+      emailError.textContent = ' email should not be empty!';
+  }
+
+
+  const namepattern= /^[A-Za-z]+$/;
   if(!namepattern.test(name)){
     nameError.textContent = 'name should only contain alphabets!';
     return;
@@ -109,10 +118,24 @@ function editUser(i) {
   document.getElementById("saveBtn").innerText = "Update";
 }
 
-
-function deleteUser(i) {
-  users.splice(i, 1);
-  localStorage.setItem("users", JSON.stringify(users));
-  renderUsers();
-
+let deleteIndex = null;
+function deleteUser(i){
+  deleteIndex = i;
+  document.getElementById("deleteModal").style.display = "flex";
 }
+
+// Modal button listeners
+document.getElementById("confirmDelete").addEventListener("click", () => {
+  if (deleteIndex !== null) {
+    users.splice(deleteIndex, 1);
+    localStorage.setItem("users", JSON.stringify(users));
+    renderUsers();
+    deleteIndex = null;
+  }
+  document.getElementById("deleteModal").style.display = "none";
+});
+
+document.getElementById("cancelDelete").addEventListener("click", () => {
+  deleteIndex = null;
+  document.getElementById("deleteModal").style.display = "none";
+});
